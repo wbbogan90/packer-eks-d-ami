@@ -24,12 +24,13 @@ sudo systemctl enable docker.service
 # Install GraalVM, Native Image Installer and set JAVA_HOME
 wget -O graalvm-java17.tar.gz $GRAALVM_URL
 wget -O graalvm-native-image.jar $NATIVE_IMAGE_URL
+GRAALVM_DIR=graalvm-ce-java17-22.1.0
 sudo mkdir -p /usr/lib/jvm
 sudo tar -xf graalvm-java17.tar.gz -C /usr/lib/jvm
-sudo ln -s /usr/lib/jvm/graalvm-ce-java17-22.1.0/bin/java /usr/bin/java
-echo "export JAVA_HOME=/usr/lib/jvm/graalvm-ce-java17-22.1.0" | sudo tee /etc/profile.d/java.sh
-echo "export GRAALVM_HOME=/usr/lib/jvm/graalvm-ce-java17-22.1.0" | sudo tee -a /etc/profile.d/java.sh
-sudo /usr/lib/jvm/graalvm-ce-java17-22.1.0/bin/gu -L install graalvm-native-image.jar
+sudo ln -s /usr/lib/jvm/$GRAALVM_DIR/bin/java /usr/bin/java
+echo "export JAVA_HOME=/usr/lib/jvm/${GRAALVM_DIR}" | sudo tee /etc/profile.d/java.sh
+echo "export GRAALVM_HOME=/usr/lib/jvm/${GRAALVM_DIR}" | sudo tee -a /etc/profile.d/java.sh
+sudo /usr/lib/jvm/$GRAALVM_DIR/bin/gu -L install graalvm-native-image.jar
 rm graalvm-java17.tar.gz
 rm graalvm-native-image.jar
 
